@@ -1,0 +1,7 @@
+index:
+  path: /
+  controller: App\Controller\AvisosController::index
+
+futbol:
+  path: /
+  controller: App\Controller\AvisosController::futbol
