@@ -3,5 +3,5 @@ index:
   controller: App\Controller\AvisosController::index
 
 futbol:
-  path: /
+  path: /futbol
   controller: App\Controller\AvisosController::futbol
