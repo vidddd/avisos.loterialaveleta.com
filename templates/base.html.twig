@@ -3,7 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <title>Loteria La Veleta</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link href="{{ asset('css/avisos.css') }}" rel="stylesheet" /> 
+        {% endblock %}
         <link rel="shortcut icon" href="{{ absolute_url('favicon.png') }}">
     </head>
     <body>
