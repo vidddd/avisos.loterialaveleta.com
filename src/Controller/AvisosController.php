@@ -1,5 +1,4 @@
 <?php
-// src/Controller/AvisosController.php
 namespace App\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
