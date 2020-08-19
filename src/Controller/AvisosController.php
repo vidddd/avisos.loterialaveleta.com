@@ -24,11 +24,4 @@ class AvisosController extends AbstractController
             '<html><body>Lucky nuuuuuuuuuuuuuuuuuuuuuumber: ' . $number . '</body></html>'
         );
     }
-    /**
-     * @Route("/number")
-     */
-    public function number()
-    {
-        // this looks exactly the same
-    }
 }

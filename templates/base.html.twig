@@ -10,6 +10,9 @@
     </head>
     <body>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <script src="js/pdfjs/build/pdf.js"></script>
+            <script src="js/main.js"></script>
+        {% endblock %}
     </body>
 </html>
