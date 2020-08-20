@@ -16,3 +16,4 @@
 ###< symfony/phpunit-bridge ###
 /.vscode/
 /.vscode/sftp.json
+/public/pdfs/

@@ -11,7 +11,22 @@
         <link rel="shortcut icon" href="{{ absolute_url('favicon.png') }}">
     </head>
     <body style="height: auto; min-height: 100%;">
-        {% block body %}{% endblock %}
+    <div class="wrapper" style="height: auto; min-height: 100%;">
+        <header class="main-header">
+            <a href="{{ url('index') }}" class="logo">
+            <span class="logo-mini"><b>La Veleta</b></span>
+            </a>
+        </header>
+        {% include 'back/sidebar.html.twig' %}
+            <div class="content-wrapper" style="min-height: 926px;">
+                <section class="content-header">
+                    <h1>Dashboard</h1>
+                </section>
+                <section class="content">
+                    {% block content %}{% endblock %}
+                </section>
+            </div>
+    </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
