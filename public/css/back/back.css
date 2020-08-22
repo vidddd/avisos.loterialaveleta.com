@@ -319,3 +319,7 @@ a {
   box-shadow: none;
   border-color: #d2d6de;
 }
+.error {
+  color: #dd4b39 !important;
+  padding: 5px;
+}
