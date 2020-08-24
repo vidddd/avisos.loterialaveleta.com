@@ -20,13 +20,17 @@
         {% include 'back/sidebar.html.twig' %}
             <div class="content-wrapper" style="min-height: 926px;">
                 <section class="content-header">
-                    <h1>Dashboard</h1>
+                    <h1>Pantalla de Avisos LA VELETA</h1>
                 </section>
                 <section class="content">
                     {% block content %}{% endblock %}
                 </section>
             </div>
+        {% include 'back/footer.html.twig' %}
     </div>
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <script src="../js/back/back.js"></script>
+        {% endblock %}
     </body>
 </html>
+{# https://adminlte.io/themes/AdminLTE/index2.html #}

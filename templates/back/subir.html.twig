@@ -6,7 +6,7 @@
             <div class="box-header with-border">
               <h3 class="box-title">Formulario PDF</h3>
             </div>
-            {{ form_start(form, {'attr': { 'class': 'form-horizontal'}}) }}
+            {{ form_start(form, {'attr': {'id':'formsubir', 'class': 'form-horizontal'}}) }}
               <div class="box-body">
                 <div class="form-group">
                   <label for="inputEmail3" class="col-sm-2 control-label">{{ form_label(form.pdf) }}</label>
@@ -25,4 +25,5 @@
           </div>
         </div>
     </div>
+    {# https://adminlte.io/themes/AdminLTE/index2.html #}
 {% endblock %}

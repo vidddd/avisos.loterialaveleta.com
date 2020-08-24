@@ -10,6 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class BackController extends AbstractController
 {
@@ -24,7 +26,8 @@ class BackController extends AbstractController
         if ($finder->hasResults()) {
 
             foreach ($finder as $file) {
-                // $absoluteFilePath = $file->getRealPath();
+                //echo $absoluteFilePath = $file->getRealPath();
+                
                 $pdfs[] = $fileNameWithExtension = $file->getRelativePathname();
             }
         }
@@ -42,12 +45,12 @@ class BackController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $pdfFile */
             $pdfFile = $form->get('pdf')->getData();
-            dump($pdfFile);
-
             if ($pdfFile) {
+                
+                
+                $originalFilename = pathinfo($pdfFile->getClientOriginalName(), PATHINFO_FILENAME);
 
                 /*
-                $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
@@ -67,12 +70,23 @@ class BackController extends AbstractController
                 $product->setBrochureFilename($newFilename);
                 */
             }
-
-            //return $this->redirect($this->generateUrl('app_product_list'));
-
             return $this->render('back/subir.html.twig', ['form' => $form->createView(),]);
         }
 
         return $this->render('back/subir.html.twig', ['form' => $form->createView(),]);
+    }
+
+    /**
+     * @Route("/back/delete-pdf/{pdf}", name="back_delete_pdf")
+     */
+    public function deletePdf($pdf)
+    {
+        $filesystem = new Filesystem();
+        try {
+            $filesystem->remove(['pdfs/'.$pdf]);
+        } catch (IOExceptionInterface $exception) {
+            echo "An error occurred while creating your directory at ".$exception->getPath();
+        }            
+        return $this->redirect($this->generateUrl('back'));
     }
 }
