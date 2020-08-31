@@ -1,0 +1,10 @@
+
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{% block page_title %}Subir PDF{% endblock %}
+{% block page_content %}
+           <h1>Adding a new product</h1>%
+{{ form_start(form) }}
+
+    {{ form_row(form.pdf) }}
+{{ form_end(form) }}
+{% endblock %}

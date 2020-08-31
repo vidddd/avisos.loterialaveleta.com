@@ -1,11 +1,9 @@
 {
   "name": "vidddd/avisos.loterialaveleta.com",
-  "authors": [
-    {
-      "name": "David Alvarez",
-      "email": "david@hipertintorero.com"
-    }
-  ],
+  "authors": [{
+    "name": "David Alvarez",
+    "email": "david@hipertintorero.com"
+  }],
   "type": "project",
   "license": "proprietary",
   "require": {

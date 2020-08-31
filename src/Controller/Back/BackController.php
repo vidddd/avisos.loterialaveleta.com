@@ -12,6 +12,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
+//use setasign\Fpdi\Fpdi;
+use FPDF;
+//use setasign\Fpdf\Fpdf; 
+use setasign\Fpdi\Fpdi;
 
 class BackController extends AbstractController
 {
@@ -46,10 +50,10 @@ class BackController extends AbstractController
             /** @var UploadedFile $pdfFile */
             $pdfFile = $form->get('pdf')->getData();
             if ($pdfFile) {
-                
-                
                 $originalFilename = pathinfo($pdfFile->getClientOriginalName(), PATHINFO_FILENAME);
-
+                // initiate FPDI
+                $pdf = new Fpdi();
+                dump($pdf); die;
                 /*
                 // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
