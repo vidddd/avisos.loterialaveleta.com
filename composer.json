@@ -1,11 +1,9 @@
 {
   "name": "vidddd/avisos.loterialaveleta.com",
-  "authors": [
-    {
-      "name": "David Alvarez",
-      "email": "david@hipertintorero.com"
-    }
-  ],
+  "authors": [{
+    "name": "David Alvarez",
+    "email": "david@hipertintorero.com"
+  }],
   "type": "project",
   "license": "proprietary",
   "require": {
@@ -48,7 +46,9 @@
     "twig/extra-bundle": "^2.12|^3.0",
     "twig/twig": "^2.12|^3.0",
     "vich/uploader-bundle": "^1.8",
-    "setasign/fpdi": "^2.3"
+    "setasign/fpdf": "1.8.*",
+    "setasign/fpdi": "^2.0",
+    "clegginabox/pdf-merger": "dev-master"
   },
   "require-dev": {
     "symfony/browser-kit": "^4.4",

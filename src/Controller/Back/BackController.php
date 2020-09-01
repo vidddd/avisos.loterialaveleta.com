@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller\Back;
 
 use App\Entity\Pdf;
@@ -12,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use FPDF;
 use setasign\Fpdi\Fpdi;
 
 class BackController extends AbstractController
@@ -49,15 +47,16 @@ class BackController extends AbstractController
             $pdfFile = $form->get('pdf')->getData();
 
             if ($pdfFile) {
-                $originalFilename = pathinfo($pdfFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // initiate FPDI
+                // Convertimos el pdf a la version 1.4
+                $outputFileName = tempnam(sys_get_temp_dir(), '14');
+                // merge files and save resulting file as PDF version 1.4 for FPDI compatibility
+                $cmd = "gs -q -dNOPAUSE -dBATCH -dCompatibilityLevel=1.4 -sDEVICE=pdfwrite -sOutputFile=$outputFileName"." ".$pdfFile->getPathName(); 
+                $result = shell_exec($cmd);
                 $pdfi = new Fpdi();
+                $pagecount = $pdfi->setSourceFile($outputFileName);
+                var_dump($pagecount); die;
                 //$pdf_dir = $this->getParameter('kernel.project_dir') . '/public/pdfs/';
                 //$pagecount = $pdfi->setSourceFile($pdf_dir . $originalFilename . '.pdf');
-                $pagecount = $pdfi->setSourceFile($pdfFile->getPathName());
-                dump($pagecount);
-                //dump($pdfFile->getPathName());
-                die;
                 /*
                 // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
