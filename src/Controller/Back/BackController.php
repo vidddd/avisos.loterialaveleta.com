@@ -12,9 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
-//use setasign\Fpdi\Fpdi;
 use FPDF;
-//use setasign\Fpdf\Fpdf; 
 use setasign\Fpdi\Fpdi;
 
 class BackController extends AbstractController
@@ -31,7 +29,7 @@ class BackController extends AbstractController
 
             foreach ($finder as $file) {
                 //echo $absoluteFilePath = $file->getRealPath();
-                
+
                 $pdfs[] = $fileNameWithExtension = $file->getRelativePathname();
             }
         }
@@ -49,11 +47,17 @@ class BackController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $pdfFile */
             $pdfFile = $form->get('pdf')->getData();
+
             if ($pdfFile) {
                 $originalFilename = pathinfo($pdfFile->getClientOriginalName(), PATHINFO_FILENAME);
                 // initiate FPDI
-                $pdf = new Fpdi();
-                dump($pdf); die;
+                $pdfi = new Fpdi();
+                //$pdf_dir = $this->getParameter('kernel.project_dir') . '/public/pdfs/';
+                //$pagecount = $pdfi->setSourceFile($pdf_dir . $originalFilename . '.pdf');
+                $pagecount = $pdfi->setSourceFile($pdfFile->getPathName());
+                dump($pagecount);
+                //dump($pdfFile->getPathName());
+                die;
                 /*
                 // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
@@ -87,10 +91,10 @@ class BackController extends AbstractController
     {
         $filesystem = new Filesystem();
         try {
-            $filesystem->remove(['pdfs/'.$pdf]);
+            $filesystem->remove(['pdfs/' . $pdf]);
         } catch (IOExceptionInterface $exception) {
-            echo "An error occurred while creating your directory at ".$exception->getPath();
-        }            
+            echo "An error occurred while creating your directory at " . $exception->getPath();
+        }
         return $this->redirect($this->generateUrl('back'));
     }
 }

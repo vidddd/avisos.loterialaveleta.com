@@ -17,8 +17,6 @@ class PdfType extends AbstractType
             // ...
             ->add('pdf', FileType::class, [
                 'label' => 'Archivo PDF',
-
-                // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
                 'required' => true,
 
@@ -26,7 +24,7 @@ class PdfType extends AbstractType
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
                     new File([
-                        'maxSize' => '2024k',
+                        'maxSize' => '5024k',
                         'mimeTypes' => [
                             'application/pdf',
                             'application/x-pdf',
@@ -34,8 +32,7 @@ class PdfType extends AbstractType
                         'mimeTypesMessage' => 'Por favor, selecciona un documento pdf válido',
                     ])
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
