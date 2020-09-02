@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller\Back;
 
 use App\Entity\Pdf;
@@ -15,6 +16,13 @@ use setasign\Fpdi\Fpdi;
 
 class BackController extends AbstractController
 {
+    private $temporales;
+
+    public function __construct()
+    {
+        $this->temporales = [];
+    }
+
     /**
      * @Route("/back", name="back")
      */
@@ -50,37 +58,41 @@ class BackController extends AbstractController
                 // Convertimos el pdf a la version 1.4
                 $outputFileName = tempnam(sys_get_temp_dir(), '14');
                 // merge files and save resulting file as PDF version 1.4 for FPDI compatibility
-                $cmd = "gs -q -dNOPAUSE -dBATCH -dCompatibilityLevel=1.4 -sDEVICE=pdfwrite -sOutputFile=$outputFileName"." ".$pdfFile->getPathName(); 
+                $cmd = "gs -q -dNOPAUSE -dBATCH -dCompatibilityLevel=1.4 -sDEVICE=pdfwrite -sOutputFile=$outputFileName" . " " . $pdfFile->getPathName();
                 $result = shell_exec($cmd);
                 $pdfi = new Fpdi();
-                $pagecount = $pdfi->setSourceFile($outputFileName);
-                var_dump($pagecount); die;
-                //$pdf_dir = $this->getParameter('kernel.project_dir') . '/public/pdfs/';
-                //$pagecount = $pdfi->setSourceFile($pdf_dir . $originalFilename . '.pdf');
-                /*
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+                $pageCount = $pdfi->setSourceFile($outputFileName);
 
-                // Move the file to the directory where brochures are stored
-                try {
-                    $brochureFile->move(
-                        $this->getParameter('brochures_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
+                $pdf_dir_tmp = $this->getParameter('kernel.project_dir') . '/public/pdfs-tmp';
+                $name_tmp = uniqid();
+                //Si es 1 una pagina solo no lo parte 
+                if ($pageCount > 1) {
+                    for ($i = 1; $i <= $pageCount; $i++) {
+                        $newPdf = new Fpdi();
+                        $newPdf->addPage();
+                        $newPdf->setSourceFile($outputFileName);
+                        $newPdf->useTemplate($newPdf->importPage($i));
+                        $newFilename = sprintf('%s/%s_%s.pdf', $pdf_dir_tmp, $name_tmp, $i);
+                        $newPdf->output($newFilename, 'F');
+                        $this->temporales[] = sprintf('%s_%s.pdf', $name_tmp, $i);
+                    }
+                } else {
+                    $filesystem = new Filesystem();
+                    try {
+                        $nombre =  'pdfs/' . uniqid() . '.pdf';
+                        $filesystem->rename($pdfFile->getPathName(), $nombre);
+                        $filesystem->chmod($nombre, 0777);
+                    } catch (IOExceptionInterface $exception) {
+                        echo "An error occurred while creating your directory at " . $exception->getPath();
+                    }
                 }
 
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
-                $product->setBrochureFilename($newFilename);
-                */
+                return $this->render('back/subir.html.twig', ['form' => $form->createView(), 'temporales' => $this->temporales]);
             }
-            return $this->render('back/subir.html.twig', ['form' => $form->createView(),]);
+            return $this->render('back/subir.html.twig', ['form' => $form->createView(), 'temporales' => null]);
         }
 
-        return $this->render('back/subir.html.twig', ['form' => $form->createView(),]);
+        return $this->render('back/subir.html.twig', ['form' => $form->createView(), 'temporales' => null]);
     }
 
     /**

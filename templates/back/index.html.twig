@@ -1,15 +1,21 @@
 {% extends 'back/base.html.twig' %}
 {% block content %}
+    {% if pdfs %}
     <div class="row">
         {% for pdf in pdfs %}
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
                     {% set url = 'pdfs/' ~ pdf %}
-                    <iframe src="{{ asset(url) }}" width="100%" height="200px"></iframe>
+                    <iframe src="{{ asset(url) }}" width="100%" height="350px"></iframe>
                     <span class="nombre-pdf">{{ pdf }}</span>
                     <a href="{{ path('back_delete_pdf', { 'pdf': pdf }) }}" class="eliminar" onclick="return confirm('Deseas borrar el archivo?')">X</a>
                 </div>
             </div>
         {% endfor %}
     </div>
+    {% else %}
+    <div class="row">
+        <div class="col">No Hay Avisos</div>
+    </div>
+    {% endif %}
 {% endblock %}
