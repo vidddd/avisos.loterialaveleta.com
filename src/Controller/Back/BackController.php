@@ -30,13 +30,13 @@ class BackController extends AbstractController
     {
         $pdfs = [];
         $finder = new Finder();
-        $finder->files()->in('../public/pdfs');
+        $finder->depth('== 0');
+        $finder->files()->ignoreUnreadableDirs()->in('../public/pdfs');
         if ($finder->hasResults()) {
 
             foreach ($finder as $file) {
                 //echo $absoluteFilePath = $file->getRealPath();
-
-                $pdfs[] = $fileNameWithExtension = $file->getRelativePathname();
+                $pdfs[] = $file->getRelativePathname();
             }
         }
         return $this->render('back/index.html.twig', ['pdfs' => $pdfs]);
@@ -64,7 +64,7 @@ class BackController extends AbstractController
                 $pageCount = $pdfi->setSourceFile($outputFileName);
 
                 $pdf_dir_tmp = $this->getParameter('kernel.project_dir') . '/public/pdfs-tmp';
-                $name_tmp = uniqid();
+                $pdfid = uniqid();
                 //Si es 1 una pagina solo no lo parte 
                 if ($pageCount > 1) {
                     for ($i = 1; $i <= $pageCount; $i++) {
@@ -72,27 +72,28 @@ class BackController extends AbstractController
                         $newPdf->addPage();
                         $newPdf->setSourceFile($outputFileName);
                         $newPdf->useTemplate($newPdf->importPage($i));
-                        $newFilename = sprintf('%s/%s_%s.pdf', $pdf_dir_tmp, $name_tmp, $i);
+                        $newFilename = sprintf('%s/%s_%s.pdf', $pdf_dir_tmp, $pdfid, $i);
                         $newPdf->output($newFilename, 'F');
-                        $this->temporales[] = sprintf('%s_%s.pdf', $name_tmp, $i);
+                        $this->temporales[] = sprintf('%s_%s.pdf', $pdfid, $i);
                     }
                 } else {
                     $filesystem = new Filesystem();
                     try {
-                        $nombre =  'pdfs/' . uniqid() . '.pdf';
+                        $nombre =  'pdfs/' . $pdfid . '.pdf';
                         $filesystem->rename($pdfFile->getPathName(), $nombre);
                         $filesystem->chmod($nombre, 0777);
                     } catch (IOExceptionInterface $exception) {
                         echo "An error occurred while creating your directory at " . $exception->getPath();
                     }
+                    return $this->redirect($this->generateUrl('back'));
                 }
 
-                return $this->render('back/subir.html.twig', ['form' => $form->createView(), 'temporales' => $this->temporales]);
+                return $this->render('back/subir.html.twig', ['form' => $form->createView(), 'temporales' => $this->temporales, 'pdfid' => $pdfid]);
             }
-            return $this->render('back/subir.html.twig', ['form' => $form->createView(), 'temporales' => null]);
+            return $this->render('back/subir.html.twig', ['form' => $form->createView(), 'temporales' => null, 'pdfid' => null]);
         }
 
-        return $this->render('back/subir.html.twig', ['form' => $form->createView(), 'temporales' => null]);
+        return $this->render('back/subir.html.twig', ['form' => $form->createView(), 'temporales' => null, 'pdfid' => null]);
     }
 
     /**

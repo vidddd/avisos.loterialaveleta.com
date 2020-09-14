@@ -17,3 +17,4 @@
 /.vscode/
 /.vscode/sftp.json
 /public/pdfs/
+/public/pdfs-tmp/
