@@ -33,11 +33,11 @@ class BackController extends AbstractController
         $finder->depth('== 0');
         $finder->files()->ignoreUnreadableDirs()->in('../public/pdfs');
         if ($finder->hasResults()) {
-
             foreach ($finder as $file) {
                 //echo $absoluteFilePath = $file->getRealPath();
                 $pdfs[] = $file->getRelativePathname();
             }
+            $pdfs = array_reverse($pdfs);
         }
         return $this->render('back/index.html.twig', ['pdfs' => $pdfs]);
     }
@@ -94,6 +94,21 @@ class BackController extends AbstractController
         }
 
         return $this->render('back/subir.html.twig', ['form' => $form->createView(), 'temporales' => null, 'pdfid' => null]);
+    }
+
+    /**
+     * @Route("/back/publicar-pdf/{pdf}", name="back_publicar_pdf")
+     */
+    public function publicarPdf($pdf)
+    {
+
+        $filesystem = new Filesystem();
+        try {
+            $filesystem->copy('pdfs-tmp/' . $pdf, 'pdfs/' . $pdf);
+        } catch (IOExceptionInterface $exception) {
+            echo "Error moviendo el archivo pdf " . $exception->getPath();
+        }
+        return $this->redirect($this->generateUrl('back'));
     }
 
     /**

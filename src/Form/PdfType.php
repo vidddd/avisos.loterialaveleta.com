@@ -24,7 +24,7 @@ class PdfType extends AbstractType
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
                     new File([
-                        'maxSize' => '5024k',
+                        'maxSize' => '8024k',
                         'mimeTypes' => [
                             'application/pdf',
                             'application/x-pdf',
