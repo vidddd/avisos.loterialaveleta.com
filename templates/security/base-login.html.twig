@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <meta charset="UTF-8">
+        <title>Admin Avisos - Loteria La Veleta</title>
+        {% block stylesheets %}
+            <link href="{{ asset('../bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" /> 
+            <link href="{{ asset('../css/back/back.css') }}" rel="stylesheet" /> 
+        {% endblock %}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <link rel="shortcut icon" href="{{ absolute_url('favicon.png') }}">
+</head>
+ 
+<body class="hold-transition login-page">
+    {% block body %}{% endblock %}
+</body>
+
+</html>
