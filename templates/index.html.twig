@@ -1,5 +1,48 @@
 
 {% extends 'base.html.twig' %}
 {% block body %}
-<h1>AVISOSSSSSS {{ number }}</h1>
+    {% for pdf in pdfs %}
+        {# <p>{{ pdf }}</p> #}
+    {% endfor %}
+    <div id="pdf_viewer">
+        <div id="canvas_container">
+            <canvas id="pdf_renderer"></canvas>
+        </div>
+    </div>
+    <div id="navigation_controls">
+        <button id="go_previous">Previous</button>
+        <input id="current_page" value="1" type="number"/>
+        <button id="go_next">Next</button>
+    </div>
+    <div id="zoom_controls">  
+        <button id="zoom_in">+</button>
+        <button id="zoom_out">-</button>
+    </div>
+    <script>
+       //https://code.tutsplus.com/tutorials/how-to-create-a-pdf-viewer-in-javascript--cms-32505
+       var estado = {
+            pdf: null,
+            currentPage: 1,
+            zoom: 1
+        }
+
+        pdfjsLib.getDocument('./pdfs/5f5f875914a96_6.pdf').then((pdf) => {
+            estado.pdf = pdf;
+            render()
+        });
+        function render() {
+            estado.pdf.getPage(estado.currentPage).then((page) => {
+                var canvas = document.getElementById("pdf_renderer");
+                var ctx = canvas.getContext('2d');
+                
+                var viewport = page.getViewport(estado.zoom);
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+                page.render({
+                        canvasContext: ctx,
+                        viewport: viewport
+                    });
+            });
+}
+    </script>
 {% endblock %}

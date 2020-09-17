@@ -5,3 +5,7 @@ index:
 futbol:
   path: /futbol
   controller: App\Controller\AvisosController::futbol
+
+salir:
+  path: /logout
+  controller: App\Controller\Back\BackController::salir

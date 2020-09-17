@@ -21,6 +21,7 @@ class BackController extends AbstractController
     public function __construct()
     {
         $this->temporales = [];
+        //$this->user = $this->getUser();
     }
 
     /**
@@ -123,5 +124,10 @@ class BackController extends AbstractController
             echo "An error occurred while creating your directory at " . $exception->getPath();
         }
         return $this->redirect($this->generateUrl('back'));
+    }
+
+    public function salir()
+    {
+        return $this->redirect($this->generateUrl('index'));
     }
 }

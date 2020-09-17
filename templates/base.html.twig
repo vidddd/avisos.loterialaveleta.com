@@ -7,11 +7,13 @@
             <link href="{{ asset('css/avisos.css') }}" rel="stylesheet" /> 
         {% endblock %}
         <link rel="shortcut icon" href="{{ absolute_url('favicon.png') }}">
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script>
     </head>
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}
-            <script src="js/pdfjs/build/pdf.js"></script>
+            <!-- <script src="js/pdfjs/build/pdf.js"></script> -->
+           
             <script src="js/main.js"></script>
         {% endblock %}
     </body>

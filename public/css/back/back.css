@@ -68,7 +68,7 @@ a {
 
 .sidebar-menu,
 .main-sidebar .user-panel,
-.sidebar-menu>li.header {
+.sidebar-menu > li.header {
   white-space: nowrap;
   overflow: hidden;
 }
@@ -79,26 +79,26 @@ a {
   padding: 0;
 }
 
-.sidebar-menu>li {
+.sidebar-menu > li {
   position: relative;
   margin: 0;
   padding: 0;
 }
 
-.skin-blue .sidebar-menu>li.header {
+.skin-blue .sidebar-menu > li.header {
   color: #4b646f;
   background: #1a2226;
 }
 
 .sidebar-form,
-.sidebar-menu>li.header {
+.sidebar-menu > li.header {
   overflow: hidden;
   text-overflow: clip;
 }
 
 .sidebar-menu,
 .main-sidebar .user-panel,
-.sidebar-menu>li.header {
+.sidebar-menu > li.header {
   white-space: nowrap;
   overflow: hidden;
 }
@@ -107,8 +107,8 @@ a {
   color: #b8c7ce;
 }
 
-.sidebar-menu>li:hover>a,
-.sidebar-menu>li.active>a {
+.sidebar-menu > li:hover > a,
+.sidebar-menu > li.active > a {
   color: #fff;
   background: #1e282c;
 }
@@ -122,23 +122,23 @@ a {
   color: #b8c7ce !important;
 }
 
-.sidebar-menu>li.active>a {
+.sidebar-menu > li.active > a {
   border-left-color: #3c8dbc;
 }
 
-.sidebar-menu>li:hover>a,
-.sidebar-menu>li.active>a,
-.sidebar-menu>li.menu-open>a {
+.sidebar-menu > li:hover > a,
+.sidebar-menu > li.active > a,
+.sidebar-menu > li.menu-open > a {
   color: #fff !important;
   background: #1e282c;
   text-decoration: none;
 }
 
-.sidebar-menu>li>a {
+.sidebar-menu > li > a {
   border-left: 3px solid transparent;
 }
 
-.sidebar-menu li>a {
+.sidebar-menu li > a {
   position: relative;
 }
 
@@ -148,7 +148,7 @@ a {
   text-decoration: none;
 }
 
-.sidebar-menu>li>a {
+.sidebar-menu > li > a {
   padding: 12px 5px 12px 15px;
   display: block;
 }
@@ -179,7 +179,7 @@ a {
   background: transparent;
 }
 
-.content-header>h1 {
+.content-header > h1 {
   margin: 0;
   font-size: 24px;
 }
@@ -410,8 +410,8 @@ a.eliminar:hover {
 
 .box .overlay,
 .overlay-wrapper .overlay,
-.box>.loading-img,
-.overlay-wrapper>.loading-img {
+.box > .loading-img,
+.overlay-wrapper > .loading-img {
   position: absolute;
   top: 0;
   left: 0;
@@ -437,7 +437,22 @@ a.eliminar:hover {
 .btn-success.hover {
   background-color: #008d4c;
 }
-
+.skin-blue .sidebar-menu > li.header {
+  color: #4b646f;
+  background: #1a2226;
+}
+.user-panel > .info,
+.user-panel > .info > a {
+  color: #fff;
+}
+.sidebar-form,
+.sidebar-menu > li.header {
+  overflow: hidden;
+  text-overflow: clip;
+}
+.sidebar-menu > li.header {
+  color: #4b646f;
+}
 /*** LOGIN ***/
 .login-page,
 .register-page {
@@ -463,4 +478,15 @@ a.eliminar:hover {
 
 .login-logo b {
   font-weight: 700;
+}
+.login-box-body {
+  background: #fff;
+  padding: 20px;
+  border-top: 0;
+  color: #666;
+}
+.login-box-msg {
+  margin: 0;
+  text-align: center;
+  padding: 0 20px 20px 20px;
 }

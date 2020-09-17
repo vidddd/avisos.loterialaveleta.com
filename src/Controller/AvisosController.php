@@ -1,18 +1,30 @@
 <?php
+
 namespace App\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\Finder;
 
 class AvisosController extends AbstractController
 {
     public function index(): Response
     {
-        $number = random_int(0, 100);
+        $pdfs = [];
+        $finder = new Finder();
+        $finder->depth('== 0');
+        $finder->files()->ignoreUnreadableDirs()->in('../public/pdfs');
+        if ($finder->hasResults()) {
+            foreach ($finder as $file) {
+                //echo $absoluteFilePath = $file->getRealPath();
+                $pdfs[] = $file->getRelativePathname();
+            }
+            $pdfs = array_reverse($pdfs);
+        }
 
         return $this->render('index.html.twig', [
-            'number' => $number,
+            'pdfs' => $pdfs,
         ]);
     }
 
