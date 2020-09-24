@@ -1,7 +1,33 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: #a6a5eb;
   color: #5d6164;
   font-family: Poppins Medium, Arial, sans-serif !important;
   overflow-x: hidden;
   padding: 1%;
+}
+.horizontal-scroll-wrapper {
+  width: 98%;
+  height: 900px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+.horizontal-scroll-wrapper > div {
+  cursor: pointer;
+  display: inline-block;
+  *display: inline; /* For IE7*/
+  *zoom: 1; /* For IE7*/
+  vertical-align: top;
+}
+.canvas-container {
+  background: #fff;
+  text-align: center;
+  height: auto;
+  float: left;
+  margin: 0 10px;
+  box-shadow: 5px 5px 2px #aaaaaa;
 }

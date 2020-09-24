@@ -2,129 +2,41 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-4">
-                <div id="pdf_viewer">
-                    <div id="canvas_container">
-                        <canvas id="pdf_renderer"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div id="pdf_viewer2">
-                    <div id="canvas_container2">
-                        <canvas id="pdf_renderer2"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div id="pdf_viewer3">
-                    <div id="canvas_container3">
-                        <canvas id="pdf_renderer3"></canvas>
-                    </div>
-                </div>
-            </div>
+        <div id="container-pdfs" class="horizontal-scroll-wrapper squares">
+  
         </div>
     </div>
-    {% for pdf in pdfs %}
-        {# <p>{{ pdf }}</p> #}
-    {% endfor %}
-
-
-    <div id="navigation_controls">
-        <button id="go_previous">Previous</button>
-        <input id="current_page" value="1" type="number"/>
-        <button id="go_next">Next</button>
-    </div>
-    <div id="zoom_controls">  
-        <button id="zoom_in">+</button>
-        <button id="zoom_out">-</button>
-    </div>
     <script>
-       //https://code.tutsplus.com/tutorials/how-to-create-a-pdf-viewer-in-javascript--cms-32505
-       /*
-            5f6067e631528.pdf
-            5f5f875914a96_6.pdf
-            5f5f873b9c17f_4.pdf
-            5f5f86ee97341_1.pdf
-            5f5f7b9aec7a4.pdf
-            5f5f7a9b5b74f.pdf */
-       var estado = {
-            pdf: null,
-            currentPage: 1,
-            zoom: 1
-        }
-       var estado2 = {
-            pdf: null,
-            currentPage: 1,
-            zoom: 1
-        }
-       var estado3 = {
-            pdf: null,
-            currentPage: 1,
-            zoom: 1
-        }
+    var pdfs = {{ pdfs|json_encode()|raw }};
+    pdfs.forEach(printPDF);
 
-        pdfjsLib.getDocument('./pdfs/5f5f875914a96_6.pdf').then((pdf) => {
-            estado.pdf = pdf;
-            render()
-        });
-        pdfjsLib.getDocument('./pdfs/5f5f873b9c17f_4.pdf').then((pdf) => {
-            estado2.pdf = pdf;
-            render2()
-        });
-        pdfjsLib.getDocument('./pdfs/5f5f86ee97341_1.pdf').then((pdf) => {
-            estado3.pdf = pdf;
-            render3()
-        });
-        function render() {
 
-            estado.pdf.getPage(estado.currentPage).then((page) => {
+    function printPDF(elemento, indice) {
+        let html = `<div id="pdf_viewer_${indice}">
+                        <div class="canvas-container">
+                            <canvas id="pdf_renderer_${indice}"></canvas>
+                        </div>
+                    </div>`;
+        
+        document.getElementById("container-pdfs").insertAdjacentHTML('beforeend', html);
 
-                var canvas = document.getElementById("pdf_renderer");
+        pdfjsLib.getDocument('./pdfs/'+elemento).then((pdf) => {
+            //cojemos solo una pagina
+            pdf.getPage(1).then((page) => {
+         
+                var canvas = document.getElementById("pdf_renderer_"+indice);
                 var ctx = canvas.getContext('2d');
-                
-                var viewport = page.getViewport(estado.zoom);
+                var viewport = page.getViewport(1);
                 canvas.width = viewport.width;
                 canvas.height = viewport.height;
                 page.render({
                         canvasContext: ctx,
                         viewport: viewport
                     });
-            });
-        }
-        function render2() {
-            
-            estado2.pdf.getPage(estado.currentPage).then((page) => {
-
-                var canvas = document.getElementById("pdf_renderer2");
-                var ctx = canvas.getContext('2d');
-                
-                var viewport = page.getViewport(estado.zoom);
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
-                page.render({
-                        canvasContext: ctx,
-                        viewport: viewport
-                    });
-            });
-        }
-
-        function render3() {
-            
-            estado3.pdf.getPage(estado.currentPage).then((page) => {
-
-                var canvas = document.getElementById("pdf_renderer3");
-                var ctx = canvas.getContext('2d');
-                
-                var viewport = page.getViewport(estado.zoom);
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
-                page.render({
-                        canvasContext: ctx,
-                        viewport: viewport
-                    });
-            });
-        }
+                    
+            });  
+        });
+    }
     </script>
+    {# //https://code.tutsplus.com/tutorials/how-to-create-a-pdf-viewer-in-javascript--cms-32505 #}
 {% endblock %}
