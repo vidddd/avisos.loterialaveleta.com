@@ -6,8 +6,11 @@
   
         </div>
     </div>
+
     <script>
     var pdfs = {{ pdfs|json_encode()|raw }};
+    
+
     pdfs.forEach(printPDF);
 
 
@@ -20,7 +23,7 @@
         
         document.getElementById("container-pdfs").insertAdjacentHTML('beforeend', html);
 
-        pdfjsLib.getDocument('./pdfs/'+elemento).then((pdf) => {
+        const loadPDF = pdfjsLib.getDocument('./pdfs/'+elemento).then((pdf) => {
             //cojemos solo una pagina
             pdf.getPage(1).then((page) => {
          
@@ -37,6 +40,7 @@
             });  
         });
     }
+
     </script>
     {# //https://code.tutsplus.com/tutorials/how-to-create-a-pdf-viewer-in-javascript--cms-32505 #}
 {% endblock %}

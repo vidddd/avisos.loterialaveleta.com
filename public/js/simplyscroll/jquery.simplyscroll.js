@@ -17,6 +17,7 @@
   }
 })(function ($, window, document, undefined) {
   $.fn.simplyScroll = function (options) {
+    console.log("2222");
     return this.each(function () {
       // check to see if already attached to element
       if (typeof $(this).data("simplyScroll") === "undefined") {
