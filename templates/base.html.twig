@@ -9,18 +9,12 @@
         <link rel="shortcut icon" href="{{ absolute_url('favicon.png') }}">
         
         <script src="{{ asset('js/pdfjs/build/pdf.min.js') }}"></script> 
-        
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script> -->
-        <!-- <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.943/build/pdf.min.js"></script> -->
     </head>
     <body  style="height: auto; min-height: 100%;">
         {% block body %}{% endblock %}
         {% block javascripts %}
-            <!-- <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script> 
-            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
-
-            <script type="text/javascript" src="{{ asset('js/simplyscroll/jquery.simplyscroll.js') }}"></script>
-            <script type="text/javascript" src=""></script> -->
+            <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script> 
+            <script type="text/javascript" src="{{ asset('js/main.js') }}"></script> 
         {% endblock %}
     </body>
 </html>

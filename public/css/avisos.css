@@ -9,25 +9,31 @@ body {
   overflow-x: hidden;
   padding: 1%;
 }
-.horizontal-scroll-wrapper {
-  width: 98%;
-  height: 900px;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
+.scroll-container {
+  position: relative;
 }
-.horizontal-scroll-wrapper > div {
+.scroll-clip {
+  position: relative;
+  overflow: scroll;
+  width: 1850px;
+  height: 950px;
+}
+.scroll-list {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+.scroll-list div {
   cursor: pointer;
-  display: inline-block;
-  *display: inline; /* For IE7*/
-  *zoom: 1; /* For IE7*/
-  vertical-align: top;
+  position: relative;
+  float: left;
+  /*display: inline-block;*/
 }
 .canvas-container {
+  position: relative;
   background: #fff;
   text-align: center;
   height: auto;
-  float: left;
-  margin: 0 10px;
+  margin: 10px 10px;
   box-shadow: 5px 5px 2px #aaaaaa;
 }

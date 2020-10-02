@@ -2,8 +2,11 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="container-fluid">
-        <div id="container-pdfs" class="horizontal-scroll-wrapper squares">
-  
+        <div class="scroll-container">
+            <div class="scroll-clip">
+                <div id="container-pdfs" class="scroll-list">
+                </div>
+            </div>
         </div>
     </div>
 
@@ -15,11 +18,9 @@
 
 
     function printPDF(elemento, indice) {
-        let html = `<div id="pdf_viewer_${indice}">
-                        <div class="canvas-container">
+        let html = `<div id="pdf_viewer_${indice}" class="canvas-container">
                             <canvas id="pdf_renderer_${indice}"></canvas>
-                        </div>
-                    </div>`;
+                        </div>`;
         
         document.getElementById("container-pdfs").insertAdjacentHTML('beforeend', html);
 
@@ -39,6 +40,7 @@
                     
             });  
         });
+
     }
 
     </script>
