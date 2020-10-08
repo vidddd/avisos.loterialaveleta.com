@@ -20,7 +20,7 @@ class AvisosController extends AbstractController
                 //echo $absoluteFilePath = $file->getRealPath();
                 $pdfs[] = $file->getRelativePathname();
             }
-            $pdfs = array_reverse($pdfs);
+           shuffle($pdfs);
         }
 
         return $this->render('index.html.twig', [
@@ -36,6 +36,7 @@ class AvisosController extends AbstractController
             '<html><body>Lucky nuuuuuuuuuuuuuuuuuuuuuumber: ' . $number . '</body></html>'
         );
     }
+   
     /**
      * @Route("/number")
      */

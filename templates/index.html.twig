@@ -3,9 +3,7 @@
 {% block body %}
     <div class="container-fluid">
         <div class="scroll-container">
-            <div class="scroll-clip">
-                <div id="container-pdfs" class="scroll-list">
-                </div>
+            <div id="container-pdfs" class="scroll-list">
             </div>
         </div>
     </div>
@@ -13,8 +11,10 @@
     <script>
     var pdfs = {{ pdfs|json_encode()|raw }};
     
-
-    pdfs.forEach(printPDF);
+    function printPDFS() {
+        pdfs.forEach(printPDF);
+    }
+    
 
 
     function printPDF(elemento, indice) {
@@ -42,7 +42,7 @@
         });
 
     }
-
+    printPDFS();
     </script>
     {# //https://code.tutsplus.com/tutorials/how-to-create-a-pdf-viewer-in-javascript--cms-32505 #}
 {% endblock %}

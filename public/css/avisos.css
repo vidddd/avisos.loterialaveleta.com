@@ -9,26 +9,30 @@ body {
   overflow-x: hidden;
   padding: 1%;
 }
+
 .scroll-container {
   position: relative;
 }
+
 .scroll-clip {
   position: relative;
   overflow: scroll;
   width: 1850px;
   height: 950px;
 }
+
 .scroll-list {
   overflow: hidden;
   margin: 0;
   padding: 0;
 }
+
 .scroll-list div {
   cursor: pointer;
   position: relative;
   float: left;
-  /*display: inline-block;*/
 }
+
 .canvas-container {
   position: relative;
   background: #fff;
