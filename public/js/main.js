@@ -2,7 +2,7 @@
 
 $(function () {
   damePdfs();
-  var interval = setInterval(damePdfs, 10000);
+  var interval = setInterval(damePdfs, 15000);
 
   function damePdfs() {
     $("#container-pdfs").empty(); // limpiamos antes de pintar el html
@@ -32,8 +32,13 @@ $(function () {
               canvasContext: ctx,
               viewport: viewport,
             });
-          });
-           Promise.resolve();
+          })
+          .catch((error) => {
+            console.log('page.render.222222')
+          }) //Promise.resolve();
+          .catch((error) => {
+            console.log('pdfjslib.getDocument111111')
+          }); //Promise.resolve();
         });
   }
 });
