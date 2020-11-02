@@ -7,7 +7,7 @@ body {
   color: #5d6164;
   font-family: Poppins Medium, Arial, sans-serif !important;
   overflow-x: hidden;
-  padding: 1%;
+  padding: 0 2px;
 }
 
 .scroll-container {
@@ -16,12 +16,12 @@ body {
 
 .scroll-clip {
   position: relative;
-  overflow: scroll;
   width: 1850px;
   height: 950px;
 }
 
 .scroll-list {
+  display: flex;
   overflow: hidden;
   margin: 0;
   padding: 0;
@@ -30,7 +30,6 @@ body {
 .scroll-list div {
   cursor: pointer;
   position: relative;
-  float: left;
 }
 
 .canvas-container {
@@ -38,6 +37,6 @@ body {
   background: #fff;
   text-align: center;
   height: auto;
-  margin: 10px 10px;
+  margin: 10px 7px;
   box-shadow: 5px 5px 2px #aaaaaa;
 }

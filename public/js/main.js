@@ -2,7 +2,7 @@
 
 $(function () {
   damePdfs();
-  var interval = setInterval(damePdfs, 15000);
+  var interval = setInterval(damePdfs, 20000);
 
   function damePdfs() {
     $("#container-pdfs").empty(); // limpiamos antes de pintar el html

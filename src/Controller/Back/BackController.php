@@ -59,7 +59,7 @@ class BackController extends AbstractController
                 // Convertimos el pdf a la version 1.4
                 $outputFileName = tempnam(sys_get_temp_dir(), '14');
                 // merge files and save resulting file as PDF version 1.4 for FPDI compatibility
-                $cmd = "gs -q -dNOPAUSE -dBATCH -dCompatibilityLevel=1.4 -sDEVICE=pdfwrite -sOutputFile=$outputFileName" . " " . $pdfFile->getPathName();
+                $cmd = "gs -q -dNOPAUSE -dBATCH -dCompatibilityLevel=1.4 -dGraphicsAlphaBits=1 -sDEVICE=pdfwrite -sOutputFile=$outputFileName" . " " . $pdfFile->getPathName();
                 $result = shell_exec($cmd);
                 $pdfi = new Fpdi();
                 $pageCount = $pdfi->setSourceFile($outputFileName);
